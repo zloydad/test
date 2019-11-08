@@ -1,0 +1,1268 @@
+{
+	"info": {
+		"_postman_id": "cd9efacc-4759-48d2-a739-f80d07223e9e",
+		"name": "API COURIER",
+		"description": "что то ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Запросы от отправителя",
+			"item": [
+				{
+					"name": "Авторизация",
+					"item": [
+						{
+							"name": "Авторизация",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<Credentials>\n\t<Username>Korust_1</Username>\n\t<Password>y3bod46f</Password>\n</Credentials>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api//auth/logon",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"",
+										"auth",
+										"logon"
+									]
+								},
+								"description": "Аторизачия через логин-пароль"
+							},
+							"response": []
+						},
+						{
+							"name": "Определение идентификатора",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "29B4B7743D9B36BCF695572B9DADD060E6511E908D566F8EA2CC9F43B1E8942F2DFF2151352A418ED32D2D3164B46B46C6AE86AD16366AB01067DA27256717F777890DCBC8647C04E57CC733322E6E400B1CB6210464B521220AD44D02AB7D3251AB25425747C2B1321A0658AE42DEC211D0FD7A1526F3424B396AFCE29F0DBA3A09A5A172E28E4416310DE41B81CD4A0C00ADF8C050355A20673D83F5FC0CB634726E729BE6AC021B3A663C69765778F28F082EBAB8D08DB73D20958AC062C89A06B23E98C2B58369213C7CB0C6ACC2CFAE7F43C747AEF23D0B3323BEDF491616980A49E190B07D12CE0D1D997137A81645D807CBE2E7FF45FE7606128262C09F9870D191C13E2C0BC7E1FCAB64DB50D598C7C96625BEE18F84E9ECA5246DA6BBEF2927",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<ClientSearchInfo>\r\n\t<Inn>5190024020</Inn> //ИНН контрагента (получателя)\r\n</ClientSearchInfo>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/dictionary/findClient",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"dictionary",
+										"findClient"
+									]
+								},
+								"description": "Для отправки документов необходимо знать идентификатор участника ЭДО контрагента - получателя документа. Для этого нужно воспользоваться методом FindClient. Поиск клиента можно осуществить, например, по ИНН.\n\n<Code>2BK-2222445702-1000714222222</Code> // Идентификатор участника ЭДО"
+							},
+							"response": []
+						}
+					],
+					"description": "Подготовка к ЭДО",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Загрузка и подписание  СЧФ",
+					"item": [
+						{
+							"name": "Загрузка документа ",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "29B4B7743D9B36BCF695572B9DADD060E6511E908D566F8EA2CC9F43B1E8942F2DFF2151352A418ED32D2D3164B46B46C6AE86AD16366AB01067DA27256717F777890DCBC8647C04E57CC733322E6E400B1CB6210464B521220AD44D02AB7D3251AB25425747C2B1321A0658AE42DEC211D0FD7A1526F3424B396AFCE29F0DBA3A09A5A172E28E4416310DE41B81CD4A0C00ADF8C050355A20673D83F5FC0CB634726E729BE6AC021B3A663C69765778F28F082EBAB8D08DB73D20958AC062C89A06B23E98C2B58369213C7CB0C6ACC2CFAE7F43C747AEF23D0B3323BEDF491616980A49E190B07D12CE0D1D997137A81645D807CBE2E7FF45FE7606128262C09F9870D191C13E2C0BC7E1FCAB64DB50D598C7C96625BEE18F84E9ECA5246DA6BBEF2927",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<DocumentCard>\n    <Number>12321</Number>\n    <Date>2019-11-08</Date>\n    <TypeCode>UPD_SF</TypeCode>\n    <Content>\n        <Filename>ON_SCHFDOPPR_2BK-2313016147-56221_2BK-7804016170-56220_20191106_FBF8BAA8-6487-4CDD-8CEE-21C295C6B890.xml</Filename>\n        <MimeType>text/xml</MimeType>\n        <Content></Content>\n    </Content>\n</DocumentCard>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/document/add/TST-5190024020-39017",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"document",
+										"add",
+										"TST-5190024020-39017"
+									]
+								},
+								"description": "Загрузка документа в СФЕРА Курьер"
+							},
+							"response": []
+						},
+						{
+							"name": "Подписать",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<SignatureWithTicket>\r\n\t<Content>...</Content>\r\n</SignatureWithTicket>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/document/sign/ID DOC",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"document",
+										"sign",
+										"ID DOC"
+									]
+								},
+								"description": "Добавление подписи к документу"
+							},
+							"response": []
+						}
+					],
+					"description": "Чтобы загрузить документ через API необходимо произвести конвертацию содержимого документа счета-фактуры в кодировку base64. Для этого можно воспользоваться on-line конвертером перейдя по ссылке: http://www.motobit.com/util/base64-decoder-encoder.asp \n\nДля того, чтобы загрузить документ и подписать его одним методом необходимо в методе Document.Add (подпункт 2.3.1) заполнить данные подписи документа <Signature>.",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "391d9871-73ee-43b4-a8bf-a6359c42a5d2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "07e10a68-3507-48d7-be97-d1fd5e4bb0bf",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Определение наличия счета-фактуры и квитанций на обработку",
+					"item": [
+						{
+							"name": "Чтение ленты",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/event/getDocumentEvents/26840 - id документа",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"event",
+										"getDocumentEvents",
+										"26840 - id документа"
+									]
+								},
+								"description": "Чтение ленты событий по конкретному документу"
+							},
+							"response": []
+						},
+						{
+							"name": "Просмотр содержимого квитанций",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets/ticket/39903 - id квитанции",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets",
+										"ticket",
+										"39903 - id квитанции"
+									]
+								},
+								"description": "Для того, чтобы определить предназначение квитанции, т.е. понимать какую ответную квитанцию формировать, необходимо просмотреть ее содержимое. Для этого следует воспользоваться методом Tickets.Tiсket. Тип квитанции указывается в теге <Type>. \r\nДля счетов-фактур основными типами квитанция являются:\r\n\r\nТип квитанции\t    Описание\r\nInvoice\t            Счет-фактура\r\nSendConfirmation\tПодтверждение даты отправки\r\nReceiveConfirmation\tПодтверждение даты получения\r\nClarificationNotice\tУведомление об уточнении\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Получение Отправителем списка всех квитанций на обработку",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "29B4B7743D9B36BCF695572B9DADD060E6511E908D566F8EA2CC9F43B1E8942F2DFF2151352A418ED32D2D3164B46B46C6AE86AD16366AB01067DA27256717F777890DCBC8647C04E57CC733322E6E400B1CB6210464B521220AD44D02AB7D3251AB25425747C2B1321A0658AE42DEC211D0FD7A1526F3424B396AFCE29F0DBA3A09A5A172E28E4416310DE41B81CD4A0C00ADF8C050355A20673D83F5FC0CB634726E729BE6AC021B3A663C69765778F28F082EBAB8D08DB73D20958AC062C89A06B23E98C2B58369213C7CB0C6ACC2CFAE7F43C747AEF23D0B3323BEDF491616980A49E190B07D12CE0D1D997137A81645D807CBE2E7FF45FE7606128262C09F9870D191C13E2C0BC7E1FCAB64DB50D598C7C96625BEE18F84E9ECA5246DA6BBEF2927",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "После загрузки и подписания документа отправителю приходит от Оператора ЭДО квитанция \"Подтверждение даты получения счета-фактуры\", на которую отправитель должен сформировать и подписать \"Извещение о получении подтверждения даты получения счета-фактуры\". Для того, чтобы сформировать \"Извещение о получении подтверждения даты получения счета-фактуры\" необходимо определить идентификатор входящей квитанции. \r\n\r\nПри совершении какого-либо действия над документом в системе происходит событие. Все события хранятся в ленте событий.\r\n\r\nЛента событий – список всех событий\\действий (создание, подписание документа, доставка документа на сторону получателя и др.) совершенных над документом.\r\n\r\nОриентироваться нужно на тип событий: \r\n1.\tReceived - доставка документа на сторону получателя для получателя(т.е. этот тип события содержит id того документа, с которым нужно произвести какое-либо действие: Принять, Подписать или Отклонить).\r\n2.\tTicketReceived - событие с данным типом содержит включает в себя id квитанции, на которую нужно сформировать ответную квитанцию.\r\n",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Извещения о получении подтверждения даты получения счета-фактуры",
+					"item": [
+						{
+							"name": "Cоздания ответного извещения ",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets/createreply/39903",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets",
+										"createreply",
+										"39903"
+									]
+								},
+								"description": "id квитанции из подпункта 2.4.1 или 2.4.2."
+							},
+							"response": []
+						},
+						{
+							"name": "Подписание Извещения",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<SignedContent>\r\n\t<FileName>DP_IZVPOL_2BK_2BK-7104441115-1000714011111_20130918_36a9c1da-964b-4511-b824-eea2ab7b4b92.xml</FileName>\r\n\t<MimeType>text/xml</MimeType>\r\n\t<Content></Content>\r\n\t<Signature></Signature>\r\n</SignedContent>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets/add/39903",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets",
+										"add",
+										"39903"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Подписание \"Извещения о получении подтверждения даты получения счета-фактуры\" и загрузка в СФЕРА Курьер методом Tickets.Add\r\n\r\nid квитанции из подпункта 2.4.1 или 2.4.2"
+							},
+							"response": []
+						}
+					],
+					"description": "После определения идентификатора квитанции, на которую нужно сформировать ответное извещение необходимо воспользоваться методом создания ответного извещения Ticket.CreateReply, а затем методом Ticket.Add  для загрузки подписанного извещения в СФЕРА Курьер.\r\n\r\nДля формирования \"Извещения о получении подтверждения даты получения счета-фактуры\" необходимо использовать метод Tickets.CreateReply\r\n",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Работа с отклоненными счетами-фактурами",
+					"item": [
+						{
+							"name": "Чтение Отправителем ленты событий для определения Id \"Уведомления об уточнении\"",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/event/getDocumentEvents/26860",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"event",
+										"getDocumentEvents",
+										"26860"
+									]
+								},
+								"description": "id документа"
+							},
+							"response": []
+						},
+						{
+							"name": "Формирование Отправителем \"Извещения о получении уведомления об уточнении\"",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets/createreply/40007",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets",
+										"createreply",
+										"40007"
+									]
+								},
+								"description": "id квитанции из п. 2.6.1"
+							},
+							"response": []
+						},
+						{
+							"name": "Загрузка Отправителем подписанного \"Извещения о получении уведомления об уточнении\"",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<SignedContent>\r\n\t<FileName>DP_IZVPOL_2BK-2222445702-1000714222222_2BK-7104441115-1000714011111_20130923_37ad45d5-fb67-449c-9363-69b71d1f91a9.xml</FileName>\r\n\t<MimeType>text/xml</MimeType>\r\n\t<Content></Content>\r\n\t<Signature></Signature>\r\n</SignedContent>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets/add/40007",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets",
+										"add",
+										"40007"
+									]
+								},
+								"description": "id квитанции"
+							},
+							"response": []
+						}
+					],
+					"description": "Если Отправитель получил \"Уведомление об уточнении\", то ему необходимо сформировать и подписать \"Извещение о получении Уведомления об уточнении\".",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "вот",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Сторона Получателя счета-фактуры",
+			"item": [
+				{
+					"name": "Авторизация",
+					"item": [
+						{
+							"name": "Авторизация",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<Credentials>\n\t<Username>Korust_1</Username>\n\t<Password>y3bod46f</Password>\n</Credentials>\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api//auth/logon",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"",
+										"auth",
+										"logon"
+									]
+								},
+								"description": "Аторизачия через логин-пароль"
+							},
+							"response": []
+						},
+						{
+							"name": "Определение идентификатора",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "29B4B7743D9B36BCF695572B9DADD060E6511E908D566F8EA2CC9F43B1E8942F2DFF2151352A418ED32D2D3164B46B46C6AE86AD16366AB01067DA27256717F777890DCBC8647C04E57CC733322E6E400B1CB6210464B521220AD44D02AB7D3251AB25425747C2B1321A0658AE42DEC211D0FD7A1526F3424B396AFCE29F0DBA3A09A5A172E28E4416310DE41B81CD4A0C00ADF8C050355A20673D83F5FC0CB634726E729BE6AC021B3A663C69765778F28F082EBAB8D08DB73D20958AC062C89A06B23E98C2B58369213C7CB0C6ACC2CFAE7F43C747AEF23D0B3323BEDF491616980A49E190B07D12CE0D1D997137A81645D807CBE2E7FF45FE7606128262C09F9870D191C13E2C0BC7E1FCAB64DB50D598C7C96625BEE18F84E9ECA5246DA6BBEF2927",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<ClientSearchInfo>\r\n\t<Inn>5190024020</Inn> //ИНН контрагента (получателя)\r\n</ClientSearchInfo>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/dictionary/findClient",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"dictionary",
+										"findClient"
+									]
+								},
+								"description": "Для отправки документов необходимо знать идентификатор участника ЭДО контрагента - получателя документа. Для этого нужно воспользоваться методом FindClient. Поиск клиента можно осуществить, например, по ИНН.\n\n<Code>2BK-2222445702-1000714222222</Code> // Идентификатор участника ЭДО"
+							},
+							"response": []
+						}
+					],
+					"description": "Подготовка к ЭДО",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "050d816b-910f-40e1-9ab9-2383959ab214",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "310d2aa1-7231-44df-b82b-24806f2429cc",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Определение наличия документов на обработку по ленте событий",
+					"item": [
+						{
+							"name": "http://courier-demo.esphere.ru/api/api/events/0",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/events/0",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"events",
+										"0"
+									]
+								},
+								"description": "id события"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Принятие/Отклонение счета-фактуры",
+					"item": [
+						{
+							"name": "Принятие счета-фактуры",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "CD7D81EC8BF1AF3E5A3B5068E29917A79886E419D2643F71251977BDB697B776669D57C814BC0274E9E8F8E929A8EC731AF6295A94BECC12265A7F2E2F21CD06CF66F00B1305F3AD52A6D1802843EDCFDBB6F502D9DF0EECE2FECA98264F270A2C8A703FB716FF23A2BF697579F43DA05AC977EC5538379AEFBB64B0F1BD40FF1E49E351D06A74A423156BF0DE26EA2B",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/document/accept/26840",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"document",
+										"accept",
+										"26840"
+									]
+								},
+								"description": "id документа"
+							},
+							"response": []
+						},
+						{
+							"name": "Формирование и подписание \"Уведомления об уточнении\"",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/tickets/createclarification/26860?comment=Ошибка в итоговой сумме",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"tickets",
+										"createclarification",
+										"26860"
+									],
+									"query": [
+										{
+											"key": "comment",
+											"value": "Ошибка в итоговой сумме"
+										}
+									]
+								},
+								"description": "Если выполнили пункт 3.8, то отклонить документ уже нельзя, т.к. он имеет статус \"Принят\" и находится в архиве.\r\nДля того, чтобы Отклонить документ он должен находиться в одном из статусов: «На подписании», «На согласовании», «Получен».\r\n"
+							},
+							"response": []
+						},
+						{
+							"name": "Document.RequestClarification",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Auth-token",
+										"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/xml",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<SignedContent>\r\n\t<FileName>DP_UVUTOCH_2BK-7104441115-1000714011111_2BK-2222445702-1000714222222_20130923_0f2f20ce-7a50-44d7-8e77-bbc2f6bb1337.xml</FileName>\r\n\t<MimeType>text/xml</MimeType>\r\n\t<Content></Content>\r\n\t<Signature></Signature>\r\n</SignedContent>\r\n",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://courier-demo.esphere.ru/api/api/document/requestClarification/26860 - id документа",
+									"protocol": "http",
+									"host": [
+										"courier-demo",
+										"esphere",
+										"ru"
+									],
+									"path": [
+										"api",
+										"api",
+										"document",
+										"requestClarification",
+										"26860 - id документа"
+									]
+								},
+								"description": "\r\nПосле формирования \"Уведомления об уточнении\" его необходимо подписать и загрузить в систему методом Document.RequestClarification\r\n"
+							},
+							"response": []
+						}
+					],
+					"description": "Для того, чтобы переместить документ из папки \"Входящие\" на стороне получателя в папку \"Архив\", получатель должен Принять документ, используя метод Document.Accept.",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Просмотр содержимого квитанций",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "CD7D81EC8BF1AF3E5A3B5068E29917A79886E419D2643F71251977BDB697B776669D57C814BC0274E9E8F8E929A8EC731AF6295A94BECC12265A7F2E2F21CD06CF66F00B1305F3AD52A6D1802843EDCFDBB6F502D9DF0EECE2FECA98264F270A2C8A703FB716FF23A2BF697579F43DA05AC977EC5538379AEFBB64B0F1BD40FF1E49E351D06A74A423156BF0DE26EA2B",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/tickets/ticket/39904",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"tickets",
+								"ticket",
+								"39904"
+							]
+						},
+						"description": "Для того, чтобы определить какая из двух квитанций является основание для формирования Извещения о получении счета-фактуры, а какая для формирования Извещения о получении подтверждения даты отправки счета-фактуры необходимо просмотреть содержание квитанций. Для этого следует воспользоваться методом Tickets.Tiсket.\n\nid квитанции"
+					},
+					"response": []
+				},
+				{
+					"name": "Формирование и подписание \"Извещения о получении счета-фактуры\"",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/tickets/createreply/39904",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"tickets",
+								"createreply",
+								"39904"
+							]
+						},
+						"description": "Для начала нужно сформировать само Извещение о получении счета-фактуры методом Ticket.CreateReply"
+					},
+					"response": []
+				},
+				{
+					"name": "Формирование и подписание \"Извещения о получении подтверждения даты отправки  счета-фактуры\"",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/tickets/createreply/39905",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"tickets",
+								"createreply",
+								"39905"
+							]
+						},
+						"description": "id квитанции"
+					},
+					"response": []
+				},
+				{
+					"name": "Просмотр событий по документу для определения ID \"Подтверждения даты отправки извещения о получении счета-фактуры\"",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/event/getDocumentEvents/26840",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"event",
+								"getDocumentEvents",
+								"26840"
+							]
+						},
+						"description": "id документа"
+					},
+					"response": []
+				},
+				{
+					"name": "Просмотр содержимого квитанции",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "CD7D81EC8BF1AF3E5A3B5068E29917A79886E419D2643F71251977BDB697B776669D57C814BC0274E9E8F8E929A8EC731AF6295A94BECC12265A7F2E2F21CD06CF66F00B1305F3AD52A6D1802843EDCFDBB6F502D9DF0EECE2FECA98264F270A2C8A703FB716FF23A2BF697579F43DA05AC977EC5538379AEFBB64B0F1BD40FF1E49E351D06A74A423156BF0DE26EA2B",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/tickets/ticket/39904",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"tickets",
+								"ticket",
+								"39904"
+							]
+						},
+						"description": "Для того, чтобы определить какая из двух квитанций является основание для формирования Извещения о получении счета-фактуры, а какая для формирования Извещения о получении подтверждения даты отправки счета-фактуры необходимо просмотреть содержание квитанций. Для этого следует воспользоваться методом Tickets.Tiсket.\n\nid квитанции"
+					},
+					"response": []
+				},
+				{
+					"name": "Формирование и подписание \"Извещения о получении подтверждения даты отправки извещения о получении счета-фактуры\"",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "4B133BF01BADD9D2236244469F442A29C98C688784674B27C36F39720EB9EFDAA864D5FD6E7AE60A34BFB4580D1683E0DDFD9CA854EE5A654025A092904F4E5CCB6CEFE51FE80E25FD5B256412B97CCD3AA7E3CFCB5663F55A4FF10DF22D5AC3BA3B97968E5D468C4FB987FCCECF037D77B06CB5C669512AE12942261AC2AC700C1B966D9E51A23221C2C36D9C0AE7E2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/tickets/createreply/39942",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"tickets",
+								"createreply",
+								"39942"
+							]
+						},
+						"description": "id квитанции из п.16"
+					},
+					"response": []
+				}
+			],
+			"description": "dsa",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Дополнительный методы",
+			"item": [
+				{
+					"name": "Выгрузка документа",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/details/26860 - id документа",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"details",
+								"26860 - id документа"
+							]
+						},
+						"description": "Выгрузка карточки документа с его содержимым"
+					},
+					"response": []
+				},
+				{
+					"name": "Выгрузка карточки документа",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/card/26860",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"card",
+								"26860"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Выгрузка подписи под документом",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/getsignatures/26860 - id документа",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"getsignatures",
+								"26860 - id документа"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Выгрузка содержимого документа (без карточки)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/content/26860",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"content",
+								"26860"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление документа",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/delete/26860 - идентификатор документа",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"delete",
+								"26860 - идентификатор документа"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск документов по заданным реквизитам",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<DocumentRefEx>\r\n\t<Number>TEST-SF-2</Number>\r\n\t<Date>2013-09-18</Date>\r\n\t<DocumentTypeCode>SF</DocumentTypeCode>\r\n\t<ReceiverCode>2BK-2222445702-1000714222222</ReceiverCode>\r\n</DocumentRefEx>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/exist",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"exist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание счета-фактуры из упрощенной модели",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Auth-token",
+								"value": "F39A961C4C6B1C244EFA0F5DF83D52323725981209977B5488E9A0AFCF99388C0C0C2E6617D85A6ECD1B8A6EBE0A41446B1DA42DF287C4DD770C879750A3DBCDA7B05DDF7C7048777FAAF2B07802BBF85E10551B950589DC43FD9208EA6B4BABA57E5B4D566B50A5E450033AE47B9F3EE6BF6C6998C2276C99659368796FBD8FD1F59F2102DCA525DFB0211C37899231",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<Invoice>\r\n\t<Number>API-TEST-3</Number>\r\n\t<Date>2013-09-23</Date>\r\n\t<CurrencyCode>643</CurrencyCode>\r\n\t<Seller>\r\n\t\t<IdentificationInfo>\r\n\t\t\t<Organization>\r\n\t\t\t\t<Name>API поставщик</Name>\r\n\t\t\t\t<Inn>7104441115</Inn>\r\n\t\t\t\t<kpp>818991119</kpp>\r\n\t\t\t</Organization>\r\n\t\t</IdentificationInfo>\r\n\t\t<Address>\r\n\t\t\t<Local>\r\n\t\t\t\t<Zip>191111</Zip>\r\n\t\t\t\t<RegionCode>78</RegionCode>\r\n\t\t\t\t<Street>Тест</Street>\r\n\t\t\t</Local>\r\n\t\t</Address>\r\n\t</Seller>\r\n\t<Shipper>\r\n\t\t<IsSame>true</IsSame>\r\n\t</Shipper>\r\n\t<Consignee>\r\n\t\t<Name>\r\n\t\t\t<OrganizationName>Test-1</OrganizationName>\r\n\t\t</Name>\r\n\t\t<Address>\r\n\t\t\t<Local>\r\n\t\t\t\t<Zip>192222</Zip>\r\n\t\t\t\t<RegionCode>78</RegionCode>\r\n\t\t\t\t<Street>Test-2</Street>\r\n\t\t\t</Local>\r\n\t\t</Address>\r\n\t</Consignee>\r\n\t<Buyer>\r\n\t\t<IdentificationInfo>\r\n\t\t\t<Organization>\r\n\t\t\t\t<Name>API контрагент</Name>\r\n\t\t\t\t<Inn>2222445702</Inn>\r\n\t\t\t\t<Kpp>222287001</Kpp>\r\n\t\t\t</Organization>\r\n\t\t</IdentificationInfo>\r\n\t\t<Address>\r\n\t\t\t<Local>\r\n\t\t\t\t<Zip>112234</Zip>\r\n\t\t\t\t<RegionCode>78</RegionCode>\r\n\t\t\t\t<Street>Тест</Street>\r\n\t\t\t</Local>\r\n\t\t</Address>\r\n\t</Buyer>\r\n\t<Rows>\r\n\t\t<Row>\r\n\t\t\t<Name>Сыр</Name>\r\n\t\t\t<Unit>796</Unit>\r\n\t\t\t<Amount>12</Amount>\r\n\t\t\t<Price>122.81</Price>\r\n\t\t\t<NetSum>1473.72</NetSum>\r\n\t\t\t<TotalSum>1738.99</TotalSum>\r\n\t\t\t<VatType>18</VatType>\r\n\t\t\t<VatSum>265.27</VatSum>\r\n\t\t\t<CountryCode>724</CountryCode>\r\n\t\t\t<CustomDeclaration>10009020/210613/0012255</CustomDeclaration>\r\n\t\t</Row>\r\n\t\t </Rows>\r\n</Invoice>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://courier-demo.esphere.ru/api/api/document/createinvoice",
+							"protocol": "http",
+							"host": [
+								"courier-demo",
+								"esphere",
+								"ru"
+							],
+							"path": [
+								"api",
+								"api",
+								"document",
+								"createinvoice"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
